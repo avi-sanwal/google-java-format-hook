@@ -1,6 +1,7 @@
 -   id: google-java-format-hook
     name: Google Java Code Style for Java
     description: Formats code in Google's Java codestyle.
-    entry: format.sh
-    language: script
+    entry: python3 format.py
+    language: python
     files: \.java$
+    stages: [pre-commit]
