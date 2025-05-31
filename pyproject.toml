@@ -11,3 +11,9 @@ requires-python = ">=3.7"
 
 [project.scripts]
 google-java-format-hook = "google_java_format_hook.format:main"
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "coverage",
+]

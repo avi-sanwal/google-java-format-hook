@@ -54,6 +54,14 @@ git diff -U0 --no-color | python3 format.py
 
 - To change the formatter version, edit the `VERSION` variable in `format.py`.
 
+### Testing
+
+To run tests, ensure you have `pytest` installed, and then run:
+
+```sh
+VERBOSE=1 pytest --capture=sys
+```
+
 ## License
 
 See [LICENSE](LICENSE).

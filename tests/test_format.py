@@ -1,7 +1,13 @@
 # Copilot generated test file for google_java_format_hook
-# Currently broken
+
+import sys
+from pathlib import Path
 
 import pytest
+
+print("Adding parent directory to sys.path for imports... old sys.path:", sys.path)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+print("New sys.path:", sys.path)
 
 from google_java_format_hook import format as gjf
 
@@ -26,7 +32,7 @@ def test_file_md5_diff(tmp_path):
 
 def test_download_and_check(tmp_path, monkeypatch):
     # Use a small text file from the web
-    url = "https://www.w3.org/TR/PNG/iso_8859-1.txt"
+    url = "https://raw.githubusercontent.com/google/google-java-format/v1.24.0/scripts/google-java-format-diff.py"
     dest = tmp_path / "test.txt"
     monkeypatch.setattr(gjf, "vprint", lambda *a, **k: None)  # silence output
     gjf.download(url, dest)
@@ -37,6 +43,7 @@ def test_download_and_check(tmp_path, monkeypatch):
 def test_check_and_download_assets(tmp_path, monkeypatch):
     # Patch download to just create empty files
     monkeypatch.setattr(gjf, "CACHE", tmp_path)
+    monkeypatch.setattr(gjf, "VERSION_FILE", tmp_path / "VERSION.txt")
     monkeypatch.setattr(gjf, "download", lambda url, dest: dest.write_text("test"))
     monkeypatch.setattr(gjf, "vprint", lambda *a, **k: None)
     jar_path, script_path = gjf.check_and_download_assets(force_update=True)
