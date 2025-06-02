@@ -1,18 +1,18 @@
 # google-java-format-hook
 
-A pre-commit hook for automatically formatting only the modified lines of staged Java files using [google-java-format](https://github.com/google/google-java-format).
+A pre-commit hook for automatically formatting only the modified lines of Java files using [google-java-format](https://github.com/google/google-java-format).
 
 ## Features
 
-- Formats only the changed lines in staged `.java` files using `google-java-format`.
+- Formats only the changed lines in `.java` files using `google-java-format`.
 - Automatically downloads and verifies the correct version of the formatter JAR and the official diff script using Python.
-- Ensures files are not corrupt or outdated by checking SHA256 hashes.
 - Blocks commits if formatting changes are made, requiring you to review and re-stage.
 
 ## Requirements
 
 - `git`
 - `python3`
+- [pre-commit](https://pre-commit.com/)
 
 ## Installation
 
@@ -40,11 +40,14 @@ A pre-commit hook for automatically formatting only the modified lines of staged
 
 On commit, the hook will:
 
-- Download and verify the correct version of `google-java-format` and the diff script if not present or if corrupt.
-- Format only the changed lines in staged `.java` files.
+- Download and verify the correct version of `google-java-format` and the diff script if not present.
+- Format only the changed lines in `.java` files.
 - If any files are changed, the commit will be blocked and you will be prompted to review and re-stage the files.
+- To get extra logging, set `VERBOSE=1` environment variable. E.g. `VERBOSE=1 git commit ...`.
 
-You can also run the hook manually:
+### Manual Run
+
+To manually format only the changed lines in `.java` files, run:
 
 ```sh
 git diff -U0 --no-color | python3 format.py
@@ -54,7 +57,7 @@ git diff -U0 --no-color | python3 format.py
 
 - To change the formatter version, edit the `VERSION` variable in `format.py`.
 
-### Testing
+## Testing
 
 To run tests, ensure you have `pytest` installed, and then run:
 
